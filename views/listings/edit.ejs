@@ -1,0 +1,53 @@
+<style>
+  .row{
+    text-align: center;
+  }
+</style>
+
+<% layout("/layout/boilerplate")%>
+
+  <div class="row">
+    <div class="col-8 offset-2">
+      <form action="/listing/<%= data._id%>/edit" method="post">
+        <div class="mb-2">
+          <label for="listings[title]" class="form-label"></label>
+          <input type="text" value="<%= data.title %>" name="listings[title]" class="form-control" value="">
+        </div>
+      
+        <div div class="mb-2">
+          <label for="listings[description]" class="form-label"></label>
+          <textarea name="listings[description]" class="form-control"><%= data.description %></textarea>
+        </div>
+
+        <div class="mb-2">
+          <label for="listings[image][filename]" class="form-label">Image Filename</label>
+          <input type="text" name="listings[image][filename]" value="<%= data.image.filename %>" class="form-control">
+        </div>
+        
+        <div class="mb-2">
+          <label for="listings[image][url]" class="form-label">Image URL</label>
+          <input type="text" name="listings[image][url]" value="<%= data.image.url %>" class="form-control">
+        </div>
+      
+        <div class="mb-2">
+          <label for="listings[price]" class="form-label"></label>
+          <input type="number" name="listings[price]" value="<%= data.price %>" p class="form-control">
+        </div>
+      
+        <div class="mb-2">
+          <label for="listings[country]" class="form-label"></label>
+          <input type="text" name="listings[country]" value="<%= data.country %>"  class="form-control">
+        </div>
+      
+        <div class="mb-2">
+          <label for="listings[location]" class="form-label"></label>
+          <input type="text" name="listings[location]" value="<%= data.location %>"  class="form-control">
+        </div>
+      
+        <button type="submit" class="btn btn-primary mb-2">click to submit</button>
+          
+      </form>
+      
+      
+    </div>
+  </div>

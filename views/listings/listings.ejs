@@ -1,0 +1,38 @@
+<style>
+    .card{
+        margin: auto;
+        border: none;
+        padding: .5rem .1rem;
+    }
+    .card-img-top{
+        height: 25rem;
+    }
+    
+</style>
+
+<% layout("/layout/boilerplate")%>
+<div class="row">
+  
+    
+        
+        <% for (const data of allListing) { %>
+            <div class="card cols" style="width: 18rem;">
+                <img src="<%=data.image.url%>" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title"><%= data.title%></h5>
+                  <h5 class="card-title"><%= data.price%>/night</h5>
+                  
+                  <a href="/listing/<%=data._id%>" class="btn btn-primary">view</a>
+                  <a href="/listing/<%=data._id%>/edit" class="btn btn-primary">EDIT</a>
+                </div>
+              </div>
+
+            <%} %>
+            
+
+</div>
+    
+
+    
+
+

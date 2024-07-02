@@ -1,0 +1,24 @@
+<% layout("/layout/boilerplate")%>
+
+     <div class="row">
+
+          <h3>listing details</h3>
+          <div class="card col-5 offset-3">
+               <img src="<%= obj[0].image.url%>" alt="" style="height: 50vh;" class="">
+
+             <div class="card-body">
+               <h3>
+                    <%= obj[0].title %>
+               </h3>
+
+               <h4>&#8377; <%= obj[0].price.toLocaleString("en-IN") %>/Night</h4>
+               <h4>
+                    <i class="fa-solid fa-location-crosshairs"></i>  <%= obj[0].location %>
+               </h4>
+
+               <p class="long">
+                    <%= obj[0].description %>
+               </p>
+             </div>
+          </div>
+     </div>
