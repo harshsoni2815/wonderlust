@@ -2,11 +2,14 @@
     .row{
         height:65vh;
     }
+    .alert{
+      height: 10rem;
+    }
 </style>
 <% layout("/layout/boilerplate")%>
 <div class="row">
-  <div class="col-4 offset-2">
+  <div class="col-8 offset-2 alert alert-danger" role="alert">
     <h2><%= err.status %> Error</h2>
-    <h4><%= err.message %></h3>
+    <h4><%= err.message %></h4>
   </div>
 </div>

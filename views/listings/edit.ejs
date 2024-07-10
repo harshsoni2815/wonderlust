@@ -8,40 +8,51 @@
 
   <div class="row">
     <div class="col-8 offset-2">
-      <form action="/listing/<%= data._id%>/edit" method="post">
+      <form action="/listing/<%= data._id%>/edit" method="post" class="needs-validation" novalidate>
         <div class="mb-2">
           <label for="listings[title]" class="form-label"></label>
-          <input type="text" value="<%= data.title %>" name="listings[title]" class="form-control" value="">
+          <input type="text" value="<%= data.title %>" name="listings[title]" class="form-control" value="" required>
+           <div class="invalid-feedback">
+        Enter title !.
+      </div>
         </div>
       
         <div div class="mb-2">
           <label for="listings[description]" class="form-label"></label>
-          <textarea name="listings[description]" class="form-control"><%= data.description %></textarea>
+          <textarea name="listings[description]" class="form-control" required><%= data.description %></textarea>
+           <div class="invalid-feedback">
+        Enter description !.
+      </div>
         </div>
 
         <div class="mb-2">
-          <label for="listings[image][filename]" class="form-label">Image Filename</label>
-          <input type="text" name="listings[image][filename]" value="<%= data.image.filename %>" class="form-control">
-        </div>
-        
-        <div class="mb-2">
-          <label for="listings[image][url]" class="form-label">Image URL</label>
-          <input type="text" name="listings[image][url]" value="<%= data.image.url %>" class="form-control">
+          <label for="listings[image]" class="form-label">Image</label>
+          <input type="text" name="listings[image]" value="<%= data.image %>" class="form-control" >
+           
         </div>
       
         <div class="mb-2">
           <label for="listings[price]" class="form-label"></label>
-          <input type="number" name="listings[price]" value="<%= data.price %>" p class="form-control">
+          <input type="number" name="listings[price]" value="<%= data.price %>" p class="form-control" required>
+           <div class="invalid-feedback">
+        Enter price!.
+      </div>
         </div>
       
         <div class="mb-2">
           <label for="listings[country]" class="form-label"></label>
-          <input type="text" name="listings[country]" value="<%= data.country %>"  class="form-control">
+          <input type="text" name="listings[country]" value="<%= data.country %>"  class="form-control" required>
+           <div class="invalid-feedback">
+        Enter country!.
+      </div>
         </div>
       
         <div class="mb-2">
           <label for="listings[location]" class="form-label"></label>
-          <input type="text" name="listings[location]" value="<%= data.location %>"  class="form-control">
+          <input type="text" name="listings[location]" value="<%= data.location %>"  class="form-control" required>
+           <div class="invalid-feedback">
+        Enter location!.
+      </div>
         </div>
       
         <button type="submit" class="btn btn-primary mb-2">click to submit</button>
@@ -51,3 +62,4 @@
       
     </div>
   </div>
+ 

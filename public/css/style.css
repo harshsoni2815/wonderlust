@@ -139,6 +139,10 @@ body {
 /* show page */
 .show-img {
     height: 35vh;
+    border-radius: 1rem;
+}
+img{
+    border-radius: 1rem;
 }
 
 .btn1 {
@@ -149,4 +153,6 @@ body {
     text-align:justify;
     width: 15rem;
 }
+
+
 
