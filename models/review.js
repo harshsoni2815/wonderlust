@@ -1,4 +1,4 @@
-const { number } = require('joi');
+const { number, ref } = require('joi');
 const mongoose = require('mongoose');
 const {Schema} = mongoose;
 
@@ -12,7 +12,12 @@ const reviewSchema = new Schema({
  createdat:{
     type:Date,
     default:Date.now()
+ },
+ author:{
+   type:Schema.Types.ObjectId,
+   ref:"User"
  }
+
 
 })
 

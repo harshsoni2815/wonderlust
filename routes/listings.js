@@ -1,64 +1,34 @@
+if(process.env.NODE_ENV!="production"){
+    require('dotenv').config();
+}
 const express = require('express');
-const mongoose = require("mongoose");
-const listing = require('../models/listting'); 
-const ExpressError = require('../erorr-handling/custom_error')
-const { listingSchema } = require('../schema.js'); 
-const {wrapasync ,validateListing} = require('../utility/util.js');
-
+const { isloggedin,isowner ,validateListing,wrapasync} = require('../middleware.js');
+const { index, sortlisting, newListingform, newListingpost, editform, editpost, showlist, destroyList } = require('../controller/listingcontroller.js');
+const multer  = require('multer')
+const {storage} = require("../cloud_config.js");
+const upload = multer({ storage});
 const router = express.Router();
+//home page and new
+router.route("/")
+.get(index)
+.post( isloggedin,/*  validateListing, */upload.single("listings[image]"), wrapasync(newListingpost));
 
 
-//home page
-router.get('/', async (req, res) => {
-    let allListing = await listing.find({});
-    res.render('listings/listings.ejs', { allListing });
-})
-router.get("/Sort",wrapasync(async(req,res)=>{
-    let allListing = await listing.find().sort({price:1});
-    res.render('listings/listings.ejs', { allListing });
-   }));
+router.get("/Sort", wrapasync(sortlisting));
 
 
-//new listing
-router.get('/new', (req, res) => {
-    res.render('listings/new.ejs');
-})
-router.post('/', validateListing,wrapasync(async (req, res, next) => {
-   
-    console.log(req.body.listings);
-    const newlisting = new listing(req.body.listings);
-    await newlisting.save();
-    res.redirect('/listing');
-}))
+//new listing form
+router.get('/new', isloggedin, newListingform);
 
-//UPDATING
-router.get('/:id/edit', async (req, res) => {
-    let data = await listing.findById(req.params.id);
-    res.render('listings/edit.ejs', { data });
-})
-router.post('/:id/edit', validateListing,wrapasync(async (req, res) => {
-    let x = req.body.listings;
-
-    let updated = await listing.findByIdAndUpdate(req.params.id, x);
-    console.log("data is updated");
-    await updated.save();
-    res.redirect('/listing');
-
-}))
-//SHOWING
-router.get('/:id', async (req, res) => {
-    let { id } = req.params;
-    let obj = await listing.find({ _id: id }).populate('review');
-    res.render('listings/show.ejs', { obj });
-})
-
-//DELETING
-router.delete("/:id",async(req,res,next)=>{
-    let id = req.params.id;
-    let result =await listing.findByIdAndDelete(id);
-    res.redirect('/listing');
-  })
+//UPDATING form and updating
+router.route("/:id/edit")
+.get( isloggedin,wrapasync(editform))
+.post(isowner, validateListing, wrapasync(editpost));
 
 
+//showing list and deleting list
+router.route("/:id")
+.get( wrapasync(showlist))
+.delete( isloggedin,wrapasync(destroyList));
 
- module.exports = router;
+module.exports = router;

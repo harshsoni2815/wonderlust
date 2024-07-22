@@ -1,38 +1,149 @@
 <style>
-    .card{
-        margin: auto;
-        border: none;
-        padding: .5rem .1rem;
-    }
-    .card-img-top{
-        height: 15rem;
-    }
-    
+  .card {
+    margin: auto;
+    border: none;
+    padding: .5rem .1rem;
+    transition: .3s ease-in-out;
+    opacity: .95;
+  }
+
+  .card.card:hover {
+    transform: scale(1.01);
+    opacity: 1;
+  }
+
+  .card-img-top {
+    height: 15rem;
+  }
+
+  #filter-bar {
+    margin-top: 1rem;
+    height: 3rem;
+    display: flex;
+   /*  flex-wrap: wrap; */
+    margin-bottom: .5rem;
+   justify-content: space-evenly;
+   overflow: hidden;
+  }
+
+  .filter {
+    text-align: center;
+    margin-right: 2rem;
+    opacity: .8;
+    transition: .4s ease;
+  }
+
+  .filter:hover {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+
+  .filter i {
+    font-size: 1.3rem;
+  }
+  #filter-bar-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-top: 1rem;
+            margin-bottom: .5rem;
+        }
+        .slide-btn {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            display: none;
+        }
+  @media (max-width: 414px) {
+            .slide-btn {
+                display: block;
+            }
+
+            #filter-bar-container {
+                justify-content: space-between;
+            }
+        }
+
+
 </style>
 
+
 <% layout("/layout/boilerplate")%>
-<div class="row">
+<div id="filter-bar-container">
+  <button class="slide-btn" id="slide-left"><i class="fas fa-chevron-left"></i></button>
+   
+    <div id="filter-bar">
+      
+
+      
+      <div class="filter">
+        <i class="fa-solid fa-umbrella-beach"></i>
+        <p>beach</p>
+      </div>
+      <div class="filter">
+        <i class="fa-solid fa-mountain"></i>
+        <p>mountain</p>
+      </div>
+      <div class="filter">
+        <i class="fa-solid fa-chess-rook"></i>
+        <p>castle</p>
+      </div>
+      <div class="filter">
+        <i class="fa-solid fa-person-swimming"></i>
+        <p>pools</p>
+      </div>
+      <div class="filter">
+        <i class="fa-solid fa-tent"></i>
+        <p>tent</p>
+      </div>
+      <div class="filter">
+        <i class="fa-solid fa-tree"></i>
+        <p>tree-house</p>
+      </div>
+      <div class="filter">
+        <i class="fa-solid fa-tower-observation"></i>
+        <p>tower house</p>
+      </div>
+
+      <div class="filter">
+        <i class="fa-solid fa-hotel"></i>
+        <p>hotels</p>
+      </div>
+      <div class="filter">
+        <i class="fa-solid fa-igloo"></i>
+        <p>domes</p>
+      </div>
+      <div class="filter">
+        <i class="fa-solid fa-volleyball"></i>
+        <p>sports</p>
+      </div>
+      <div class="filter">
+        <i class="fa-solid fa-sailboat"></i>
+        <p>boat</p>
+    
+      
+    </div>
+  </div>
+  <button class="slide-btn" id="slide-right"><i class="fas fa-chevron-right"></i></button>
   
-    
-        
-        <% for (const data of allListing) { %>
-            <div class="card listing-card cols" style="width: 18rem;">
-                <img src="<%=data.image%>" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title"><%= data.title%></h5>
-                  <h5 class="card-title">&#8377;<%= data.price.toLocaleString("en-IN")%>/Night</h5>
-                  
-                  <a href="/listing/<%=data._id%>" class="btn btn-primary">view</a>
-                  
-                </div>
-              </div>
+  </div>
+  <div class="row mt-2">
+    <% for (const data of allListing) { %>
+      <div class="card listing-card cols" style="width: 18rem;">
+        <img src="<%=data.image.url%>" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">
+            <%= data.title%>
+          </h5>
+          <h5 class="card-title">&#8377;<%= data.price.toLocaleString("en-IN")%>/Night</h5>
 
-            <%} %>
-            
+          <a href="/listing/<%=data._id%>" class="btn btn-primary">view</a>
 
-</div>
-    
+        </div>
+      </div>
 
-    
+      <%} %>
 
-
+  </div>
+  

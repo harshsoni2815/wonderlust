@@ -1,93 +1,142 @@
 <style>
-     .btn{
+     .btn {
           width: 6rem;
      }
-     .card{
-        align-items: center;
-       /*  border: none; */
-     }
-     .show-card{
-          border: none;
-     }
-     img{
-          width: 100%;
+
+     .card {
+          align-items: center;
+          /*  border: none; */
          
      }
-     .btn{
-          margin-top:.5rem ;
-     } 
-     .review h4{
+    
+
+     .show-card {
+          border: none;
+          
+     }
+
+     img {
+          width: 100%;
+
+     }
+
+     .btn {
+          margin-top: .5rem;
+     }
+
+     .review h4 {
           text-align: center;
      }
-     .btn-div{
+
+     .btn-div {
           width: 100%;
           display: flex;
           justify-content: space-evenly;
      }
-    
 </style>
 <% layout("/layout/boilerplate")%>
 
      <div class="row mb-3">
 
-          
+
           <div class="card  show-card col-6 offset-3">
-               <h3> <%= obj[0].title %></h3>
-               <img src="<%= obj[0].image%>" alt="" style="height: 50vh;" class="mb-3">
+               <h3>
+                    <%= obj[0].title %>
+               </h3>
+               <img src="<%= obj[0].image.url%>" alt="" style="height: 50vh;" class="mb-3">
 
-             <div class="card-body">
+               <div class="card-body">
+                    <p class="card-title"><strong>Owner <%= obj[0].owner.username %></strong> </p>
+                    <p class="card-title">&#8377;<%= obj[0].price.toLocaleString("en-IN") %>/Night</p>
+                    <p class="card-title"> <i class="fa-solid fa-location-crosshairs"></i>
+                         <%= obj[0].location %>
+                    </p>
+                    <p class="card-title">
+                         <%= obj[0].description %>
+                    </p>
+
+
+
+               </div>
                
+               <div class="btn-div">
 
-               <h4>&#8377; <%= obj[0].price.toLocaleString("en-IN") %>/Night</h4>
-               <h4>
-                    <i class="fa-solid fa-location-crosshairs"></i>  <%= obj[0].location %>
-               </h4>
+                    <% if (curruser && curruser._id.equals(obj[0].owner._id)) {%>
 
-               <p class="long">
-                    <%= obj[0].description %>
-               </p>
+                         <a href="/listing/<%=obj[0]._id%>/edit" class="btn btn-primary">EDIT</a>
+                         <form method="POST" action="/listing/<%=obj[0]._id%>?_method=DELETE">
+                              <button class="btn  btn-danger ">Delete </button>
+                         </form>
+                         <% } %>
+               </div>
 
-          </div>
-          <div class="btn-div">
-               <a href="/listing/<%=obj[0]._id%>/edit" class="btn btn-primary">EDIT</a>
-               <form method="POST" action="/listing/<%=obj[0]._id%>?_method=DELETE">
-                    <button class="btn  btn-danger ">Delete </button>
-                    </form>
-          </div>
-         
           </div>
 
           <div class=" col-6 offset-3 review mt-5">
+              
                <h4 class="danger">Review</h4>
-               <form action="/listing/<%=obj[0]._id%>/review" method="post" novalidate class="needs-validation">
-                   <div class="mb-3">
-                    <label for="rating" class="form-label">rating</label>
-                    <input type="range" min="1" max="5" name="review[rating]" id="rating" class="form-control" >
-                   </div>
-                   <div class="mb-3">
-                    <label for="comment" class="form-label">Comment</label>
-                    <textarea name="review[comment]" id="comment" class="form-control" required rows="5"></textarea>
-                    <div class="invalid-feedback">
-                         please enter some comment
-                    </div>
-               </div>
-                   <button type="submit" class="btn btn-outline-dark">Submit</button>
-               </form>
-               <div class="row mt-4 ">
-                
-                  <% for (const review of obj[0].review) {%>
-                    <div class="card col-5 mb-2 offset-1">
-                      <div class="card-body">
-                         <h5 class="card-title">username</h5>
-                         <p class="card-text"> <%=review.comment %></p>
-                         <p> &#9734 <%= review.rating %></p>
-                         <form method="post" action="/listing/<%= obj[0]._id %>/review/<%= review._id %>?_method=DELETE" >
-                              <button type="submit" class="btn btn-danger mb-2">Delete</button>
-                         </form>
-                     </div>
-                    </div> 
-                 <% } %> 
-               
-               </div>
+               <% if (curruser) {%>
+                    <form action="/listing/<%=obj[0]._id%>/review" method="post" novalidate class="needs-validation">
+                         <div class="mb-3">
+                              
+                              <fieldset class="starability-slot">
+                                   <legend>First rating:</legend>
+                                   <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="0" checked aria-label="No rating." />
+                                   <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                                   <label for="first-rate1" title="Terrible">1 star</label>
+                                   <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                                   <label for="first-rate2" title="Not good">2 stars</label>
+                                   <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                                   <label for="first-rate3" title="Average">3 stars</label>
+                                   <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                                   <label for="first-rate4" title="Very good">4 stars</label>
+                                   <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                                   <label for="first-rate5" title="Amazing">5 stars</label>
+                                 </fieldset>
+                         </div>
+                         <div class="mb-3">
+                              <label for="comment" class="form-label">Comment</label>
+                              <textarea name="review[comment]" id="comment" class="form-control" required
+                                   rows="5"></textarea>
+                              <div class="invalid-feedback">
+                                   please enter some comment
+                              </div>
+                         </div>
+                         <button type="submit" class="btn btn-outline-dark">Submit</button>
+                    </form>
+                    
+                    <% } %>
+                         <div class="row mt-4 ">
+
+                              <% for (const review of obj[0].review) {%>
+                                   <div class="card col-5 mb-2 offset-1">
+                                        <div class="card-body">
+
+                                             <h5 class="card-title">
+                                                 @ <%= review.author.username %>
+                                             </h5>
+
+                                             <p class="card-text">
+                                                  <%=review.comment %>
+                                             </p>
+
+                                             <p class="starability-result" data-rating="<%=review.rating%>">
+                                                 
+                                                </p>  
+                                             </p>
+                                             <% if(curruser){ %>
+                                                  <form method="post"
+                                                       action="/listing/<%= obj[0]._id %>/review/<%= review._id %>?_method=DELETE">
+                                                       <button type="submit" class="btn btn-danger mb-2">Delete</button>
+                                                  </form>
+                                                  <% } %>
+                                        </div>
+                                   </div>
+                                   <% } %>
+                              </div>
+                              
+                             
+                              <!-- <div id="map" style="height: 30rem; width: 45rem;"></div> -->
           </div>
      </div>
+     

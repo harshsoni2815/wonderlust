@@ -16,3 +16,14 @@
       }, false)
     })
   })()
+
+  const filterBar = document.getElementById('filter-bar');
+  const slideLeftBtn = document.getElementById('slide-left');
+  const slideRightBtn = document.getElementById('slide-right');
+
+  slideLeftBtn.addEventListener('click',()=>{
+          filterBar.scrollBy({left:-100,behavior:'smooth'})
+  });
+  slideRightBtn.addEventListener('click',()=>{
+          filterBar.scrollBy({left:400,behavior:'smooth'})
+  });

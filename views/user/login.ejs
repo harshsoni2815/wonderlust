@@ -1,0 +1,32 @@
+<style>
+    .cust{
+        display: flex;
+        align-items: baseline;
+    }
+</style>
+<% layout("/layout/boilerplate")%>
+
+    <div class="row mb-3">
+        <div class="col-6 offset-3">
+            <h3>Log in</h3>
+            <form action="/user/login" method="post" novalidate class="needs-validation">
+                <div class="mb-2">
+                    <label for="username" class="form-label" >username</label>
+                    <input type="text" name="username" class="form-control" required>
+                    <div class="valid-feedback">
+                        looks good..
+                    </div>
+                </div>
+
+                <div class="mb-2">
+                    <label for="password" class="form-label">password</label>
+                    <input type="password" name="password" class="form-control" required>
+                </div>
+            <div class="cust">
+                <button type="submit" class="btn btn-outline-primary">login</button>
+               <a href="/user" class="btn btn-outline-primary">singup</a>
+            </div>
+                 
+            </form>
+        </div>
+    </div>
