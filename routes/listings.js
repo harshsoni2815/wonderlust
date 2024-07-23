@@ -11,7 +11,7 @@ const router = express.Router();
 //home page and new
 router.route("/")
 .get(index)
-.post( isloggedin,upload.single("listings[image]"), validateListing, wrapasync(newListingpost));
+.post( isloggedin,/* upload.single("listings[image]"), */ validateListing, wrapasync(newListingpost));
 
 
 router.get("/Sort", wrapasync(sortlisting));
