@@ -13,12 +13,12 @@ module.exports.newListingform=(req, res) => {
     res.render('listings/new.ejs');
 }
 module.exports.newListingpost =async (req, res, next) => {
-  /*  let {path ,filename} = req.file;
-   console.log(req.file); */
+   let {path ,filename} = req.file;
+   console.log(req.file);
    const newlisting = new listing(req.body.listings);
-   /*  newlisting.owner = req.user._id;
+    newlisting.owner = req.user._id;
     newlisting.image.url = path;
-    newlisting.image.filename=filename;  */
+    newlisting.image.filename=filename; 
     console.log("NNNNN:",newlisting);
     await newlisting.save();
     req.flash("success", "New listing is added");
