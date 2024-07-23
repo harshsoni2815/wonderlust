@@ -6,7 +6,7 @@ module.exports.index= async (req, res) => {
 
 module.exports.sortlisting=async (req, res) => {
     let allListing = await listing.find().sort({ price: 1 });
-    console.log(working)
+    
     res.render('listings/listings.ejs', { allListing });
 }
 module.exports.newListingform=(req, res) => {
