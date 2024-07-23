@@ -46,7 +46,7 @@ module.exports.validateListing = (req,res,next)=>{
 }
 module.exports.wrapasync=function (fn) {
   return function (req, res, next) {
-      fn(req, res, next).catch((err) => next(new ExpressError(400,err.message)));
+      fn(err,req, res, next).catch((err) => next(new ExpressError(400,err.message)));
   }
 }
 module.exports.isauthor=async(req,res,next)=>{
